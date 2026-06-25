@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Cup 2026 Bracket Simulator – WorldCupGolazo</title>
+  <meta name="description" content="Simulate the FIFA World Cup 2026 bracket. Pick winners from Group Stage to the Final. Who wins in your world?">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/simulator.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="nav-logo">⚽ WorldCupGolazo</a>
+    <div class="nav-links">
+      <a href="simulator.html" style="color: var(--gold)">Simulator</a>
+      <a href="arena.html">WC Arena</a>
+      <a href="history.html">History</a>
+      <a href="travel.html">Travel</a>
+      <a href="quiz.html">Quiz</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">🏠 Home</a>
+    <a href="simulator.html">🏆 Simulator</a>
+    <a href="arena.html">🎵 WC Arena</a>
+    <a href="history.html">📖 History</a>
+    <a href="travel.html">✈️ Travel</a>
+    <a href="quiz.html">❓ Quiz</a>
+  </div>
+
+  <!-- SIMULATOR HEADER -->
+  <div class="sim-header">
+    <div class="sim-header-inner">
+      <div class="sim-eyebrow">FIFA World Cup 2026</div>
+      <h1 class="sim-title">Bracket Simulator</h1>
+      <p class="sim-sub">Pick your winners from the Round of 32 to the Final. Your World Cup, your rules.</p>
+      <div class="sim-actions">
+        <button class="btn-primary" id="resetBtn">🔄 Reset Bracket</button>
+        <button class="btn-secondary" id="randomBtn">🎲 Random Simulate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMULATOR MAIN -->
+  <div class="sim-container">
+
+    <!-- PROGRESS -->
+    <div class="sim-progress">
+      <div class="progress-step active" id="step-r32">Round of 32</div>
+      <div class="progress-arrow">→</div>
+      <div class="progress-step" id="step-r16">Round of 16</div>
+      <div class="progress-arrow">→</div>
+      <div class="progress-step" id="step-qf">Quarter Finals</div>
+      <div class="progress-arrow">→</div>
+      <div class="progress-step" id="step-sf">Semi Finals</div>
+      <div class="progress-arrow">→</div>
+      <div class="progress-step" id="step-f">Final</div>
+    </div>
+
+    <!-- BRACKET -->
+    <div class="bracket-wrapper">
+      <div class="bracket" id="bracket"></div>
+    </div>
+
+    <!-- CHAMPION DISPLAY -->
+    <div class="champion-display" id="championDisplay" style="display:none;">
+      <div class="champion-inner">
+        <div class="champion-trophy">🏆</div>
+        <div class="champion-label">Your World Cup Champion</div>
+        <div class="champion-name" id="championName"></div>
+        <div class="champion-flag" id="championFlag"></div>
+        <button class="btn-primary" onclick="shareResult()">📤 Share Your Prediction</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/simulator.js"></script>
+</body>
+</html>

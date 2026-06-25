@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Cup Arena – WorldCupGolazo</title>
+  <meta name="description" content="Every official World Cup anthem, untold stories, and the music that made tournaments unforgettable.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-hero {
+      background: var(--grad-hero);
+      padding: calc(var(--nav-h) + 60px) 24px 60px;
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 80px);
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .page-hero p { color: rgba(255,255,255,0.7); font-size: 16px; }
+    .arena-grid {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .song-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: all 0.25s;
+    }
+    .song-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .song-year { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .song-title { font-family: var(--font-display); font-size: 22px; color: var(--text-primary); margin-bottom: 4px; letter-spacing: 0.5px; }
+    .song-artist { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .song-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FF0000;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: opacity 0.2s;
+    }
+    .song-link:hover { opacity: 0.85; }
+    .section-header { max-width: 1200px; margin: 0 auto; padding: 60px 24px 0; }
+    .stories-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="nav-logo">⚽ WorldCupGolazo</a>
+    <div class="nav-links">
+      <a href="simulator.html">Simulator</a>
+      <a href="arena.html" style="color: var(--gold)">WC Arena</a>
+      <a href="history.html">History</a>
+      <a href="travel.html">Travel</a>
+      <a href="quiz.html">Quiz</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">🏠 Home</a>
+    <a href="simulator.html">🏆 Simulator</a>
+    <a href="arena.html">🎵 WC Arena</a>
+    <a href="history.html">📖 History</a>
+    <a href="travel.html">✈️ Travel</a>
+    <a href="quiz.html">❓ Quiz</a>
+  </div>
+
+  <div class="page-hero">
+    <div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">The Soundtrack of Football</div>
+    <h1>World Cup Arena 🎵</h1>
+    <p>Every official anthem. Every tournament that made history. Feel the music.</p>
+  </div>
+
+  <div class="section-header">
+    <div class="section-label">Official Anthems</div>
+    <h2 class="section-title">The Songs of Every World Cup</h2>
+  </div>
+
+  <div class="arena-grid">
+    <div class="song-card">
+      <div class="song-year">2026 • USA/Canada/Mexico</div>
+      <div class="song-title">BOOM (Official 2026 Anthem)</div>
+      <div class="song-artist">FIFA Official</div>
+      <a href="https://www.youtube.com/results?search_query=FIFA+World+Cup+2026+official+anthem" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">2022 • Qatar</div>
+      <div class="song-title">Hayya Hayya (Better Together)</div>
+      <div class="song-artist">Trinidad Cardona, Davido & Aisha</div>
+      <a href="https://www.youtube.com/watch?v=OejgSMkgW5Q" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">2018 • Russia</div>
+      <div class="song-title">Live It Up</div>
+      <div class="song-artist">Nicky Jam, Will Smith & Era Istrefi</div>
+      <a href="https://www.youtube.com/watch?v=SXqDMOeVkdo" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">2014 • Brazil</div>
+      <div class="song-title">We Are One (Ole Ola)</div>
+      <div class="song-artist">Pitbull ft. Jennifer Lopez & Claudia Leitte</div>
+      <a href="https://www.youtube.com/watch?v=TgUi0GCNtHo" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">2010 • South Africa</div>
+      <div class="song-title">Waka Waka (This Time for Africa)</div>
+      <div class="song-artist">Shakira ft. Freshlyground</div>
+      <a href="https://www.youtube.com/watch?v=pRpeEdMmmQ0" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">2006 • Germany</div>
+      <div class="song-title">The Time of Our Lives</div>
+      <div class="song-artist">Il Divo & Toni Braxton</div>
+      <a href="https://www.youtube.com/results?search_query=The+Time+of+Our+Lives+FIFA+2006" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">2002 • Korea/Japan</div>
+      <div class="song-title">Anthem</div>
+      <div class="song-artist">Vangelis</div>
+      <a href="https://www.youtube.com/results?search_query=Vangelis+FIFA+World+Cup+2002+Anthem" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+    <div class="song-card">
+      <div class="song-year">1998 • France</div>
+      <div class="song-title">La Copa de la Vida</div>
+      <div class="song-artist">Ricky Martin</div>
+      <a href="https://www.youtube.com/results?search_query=Ricky+Martin+La+Copa+de+la+Vida+1998" target="_blank" rel="noopener" class="song-link">▶ Watch on YouTube</a>
+    </div>
+  </div>
+
+  <div class="stories-section">
+    <div class="section-label">Never Known Stories</div>
+    <h2 class="section-title">Behind the Scenes</h2>
+    <div class="stories-grid" style="margin-top:32px;">
+      <div class="story-card">
+        <div class="story-tag">2010</div>
+        <h4>The Vuvuzela War</h4>
+        <p>The plastic horn that divided the world. Some called it noise pollution. South Africans called it culture. FIFA almost banned it — then didn't. The sound became the anthem of an entire continent.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">1994</div>
+        <h4>The Final With No Goals</h4>
+        <p>Brazil vs Italy. The first World Cup Final decided entirely on penalties. 120 minutes of football produced zero goals. Roberto Baggio's missed penalty became one of sport's most iconic images.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">1998</div>
+        <h4>Ronaldo's Mystery Illness</h4>
+        <p>Brazil's superstar had a seizure the night before the final. He was pulled from the team sheet — then added back. Brazil lost 3-0 to France. What really happened that night remains disputed.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">⚽ WorldCupGolazo</span>
+        <p>Built by fans, for fans.</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 WorldCupGolazo. Fan site. Not affiliated with FIFA.</p></div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

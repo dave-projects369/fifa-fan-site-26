@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorldCupGolazo – The Ultimate World Cup Experience</title>
+  <meta name="description" content="Simulate the FIFA World Cup 2026 bracket, explore World Cup history, discover untold stories, and plan your match day trip. The ultimate fan destination.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">⚽ WorldCupGolazo</a>
+    <div class="nav-links">
+      <a href="pages/simulator.html">Simulator</a>
+      <a href="pages/arena.html">WC Arena</a>
+      <a href="pages/history.html">History</a>
+      <a href="pages/travel.html">Travel</a>
+      <a href="pages/quiz.html">Quiz</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="nav-hamburger" id="hamburger">☰</button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="pages/simulator.html">🏆 Simulator</a>
+    <a href="pages/arena.html">🎵 WC Arena</a>
+    <a href="pages/history.html">📖 History</a>
+    <a href="pages/travel.html">✈️ Travel</a>
+    <a href="pages/quiz.html">❓ Quiz</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="floating-emojis">
+        <span class="fe fe1">⚽</span>
+        <span class="fe fe2">🏆</span>
+        <span class="fe fe3">🎉</span>
+        <span class="fe fe4">🌊</span>
+        <span class="fe fe5">⚽</span>
+        <span class="fe fe6">🎊</span>
+        <span class="fe fe7">🏅</span>
+        <span class="fe fe8">🌴</span>
+      </div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">FIFA World Cup 2026 • USA • Canada • Mexico</div>
+      <h1 class="hero-title">The World<br><span class="hero-accent">Plays Now.</span></h1>
+      <p class="hero-sub">Simulate the bracket. Discover untold stories. Feel the carnival.</p>
+      <div class="hero-ctas">
+        <a href="pages/simulator.html" class="btn-primary">🏆 Launch Simulator</a>
+        <a href="pages/arena.html" class="btn-secondary">🎵 World Cup Arena</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">48</span><span class="stat-label">Teams</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">104</span><span class="stat-label">Matches</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">16</span><span class="stat-label">Host Cities</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Champion</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll">scroll to explore ↓</div>
+  </section>
+
+  <!-- FEATURE CARDS -->
+  <section class="features">
+    <div class="section-label">Everything World Cup</div>
+    <div class="features-grid">
+
+      <a href="pages/simulator.html" class="feature-card card-simulator">
+        <div class="card-icon">🏆</div>
+        <h3>Bracket Simulator</h3>
+        <p>Pick your winners from Group Stage to the Final. Who lifts the trophy in your world?</p>
+        <span class="card-cta">Simulate now →</span>
+      </a>
+
+      <a href="pages/arena.html" class="feature-card card-arena">
+        <div class="card-icon">🎵</div>
+        <h3>World Cup Arena</h3>
+        <p>Every official anthem, untold stories, and the music that made tournaments unforgettable.</p>
+        <span class="card-cta">Enter the arena →</span>
+      </a>
+
+      <a href="pages/history.html" class="feature-card card-history">
+        <div class="card-icon">📖</div>
+        <h3>WC History Vault</h3>
+        <p>From Uruguay 1930 to today. Every tournament, every miracle, every heartbreak.</p>
+        <span class="card-cta">Explore history →</span>
+      </a>
+
+      <a href="pages/travel.html" class="feature-card card-travel">
+        <div class="card-icon">✈️</div>
+        <h3>Travel to 2026</h3>
+        <p>Hotels near stadiums, flights, visa guides for Indian fans. Your dream trip starts here.</p>
+        <span class="card-cta">Plan your trip →</span>
+      </a>
+
+      <a href="pages/quiz.html" class="feature-card card-quiz">
+        <div class="card-icon">❓</div>
+        <h3>WC Quiz</h3>
+        <p>Test your World Cup knowledge. From legends to lucky losers. How deep does your knowledge go?</p>
+        <span class="card-cta">Take the quiz →</span>
+      </a>
+
+      <a href="pages/simulator.html" class="feature-card card-memes">
+        <div class="card-icon">😂</div>
+        <h3>Meme Zone</h3>
+        <p>The funniest moments, biggest upsets, and meme-worthy goals in World Cup history.</p>
+        <span class="card-cta">Get the laughs →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- TOURNAMENT BANNER -->
+  <section class="tournament-banner">
+    <div class="banner-content">
+      <div class="banner-text">
+        <div class="banner-eyebrow">Live Right Now</div>
+        <h2>FIFA World Cup 2026™</h2>
+        <p>The biggest tournament in football history. 48 teams. 3 nations. 1 dream.</p>
+        <a href="pages/simulator.html" class="btn-primary">Predict the winner</a>
+      </div>
+      <div class="banner-visual">
+        <div class="trophy-container">
+          <div class="trophy-glow"></div>
+          <div class="trophy-emoji">🏆</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES TEASER -->
+  <section class="stories">
+    <div class="section-label">Untold Stories</div>
+    <h2 class="section-title">The World Cup You Never Knew</h2>
+    <div class="stories-grid">
+      <div class="story-card">
+        <div class="story-tag">1950</div>
+        <h4>The Maracanazo</h4>
+        <p>200,000 people. One goal. The greatest upset in football history left Brazil in national mourning.</p>
+        <a href="pages/history.html" class="story-link">Read the story →</a>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">1966</div>
+        <h4>The Stolen Trophy</h4>
+        <p>The Jules Rimet Trophy was stolen before the tournament began. A dog named Pickles found it.</p>
+        <a href="pages/history.html" class="story-link">Read the story →</a>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">2022</div>
+        <h4>Morocco's Miracle</h4>
+        <p>A nation of 37 million. A continent of 1.4 billion. The first African team in a World Cup semifinal.</p>
+        <a href="pages/history.html" class="story-link">Read the story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">⚽ WorldCupGolazo</span>
+        <p>The ultimate fan destination for everything World Cup. Built by fans, for fans.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <a href="pages/simulator.html">Bracket Simulator</a>
+          <a href="pages/arena.html">WC Arena</a>
+          <a href="pages/history.html">History Vault</a>
+        </div>
+        <div class="footer-col">
+          <h5>More</h5>
+          <a href="pages/travel.html">Travel Guide</a>
+          <a href="pages/quiz.html">WC Quiz</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WorldCupGolazo. Fan site. Not affiliated with FIFA.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
