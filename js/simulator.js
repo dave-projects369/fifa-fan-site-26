@@ -30,7 +30,7 @@ function calculateStandings() {
   Object.keys(groups).forEach(g => {
     standings[g] = {};
     groups[g].teams.forEach(t => {
-      standings[g][t] = { pts: 0, gf: 0, ga: 0, gd: 0 };
+      standings[g][t] = { pts: 0, gf: 0, ga: 0, gd: 0, played: 0 };
     });
   });
 
@@ -48,9 +48,10 @@ function calculateStandings() {
     s[m.team2].gf += m.goals2; s[m.team2].ga += m.goals1;
     s[m.team1].gd = s[m.team1].gf - s[m.team1].ga;
     s[m.team2].gd = s[m.team2].gf - s[m.team2].ga;
+    s[m.team1].played += 1;
+    s[m.team2].played += 1;
   });
 
-  // Apply user picks from upcomingMatches
   if (typeof userPicks !== 'undefined') {
     userPicks.forEach(pick => {
       const s = standings[pick.group];
@@ -62,10 +63,11 @@ function calculateStandings() {
         s[pick.team1].pts += 1;
         s[pick.team2].pts += 1;
       }
+      s[pick.team1].played += 1;
+      s[pick.team2].played += 1;
     });
   }
 
-  // Sort each group
   const sorted = {};
   Object.keys(standings).forEach(g => {
     sorted[g] = Object.entries(standings[g])
@@ -137,16 +139,15 @@ function renderStandings() {
 
     const table = document.createElement('table');
     table.innerHTML = `
-      <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
-      ${standings[group].map(t => `
-        <tr>
-          <td>${TEAMS[t.team] || ''} ${t.team}</td>
-          <td>${t.pts}</td>
-          <td>${t.gd}</td>
-          <td>${t.gf}</td>
-        </tr>
-      `).join('')}
-    `;
+  <tr><th>Team</th><th>P</th><th>Pts</th></tr>
+  ${standings[group].map(t => `
+    <tr>
+      <td>${TEAMS[t.team] || ''} ${t.team}</td>
+      <td>${t.played}</td>
+      <td>${t.pts}</td>
+    </tr>
+  `).join('')}
+ `;
     groupDiv.appendChild(table);
     container.appendChild(groupDiv);
   });
