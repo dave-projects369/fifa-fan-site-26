@@ -139,7 +139,7 @@ function renderStandings() {
 
     const table = document.createElement('table');
     table.innerHTML = `
-  <tr><th>Team</th><th>P</th><th>Pts</th></tr>
+  <tr><th>Team</th><th>MP</th><th>Pts</th></tr>
   ${standings[group].map(t => `
     <tr>
       <td>${TEAMS[t.team] || ''} ${t.team}</td>
