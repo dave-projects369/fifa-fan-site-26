@@ -4,38 +4,33 @@
    ============================================ */
 
 :root {
-  /* LIGHT MODE TOKENS */
-  --bg-primary: #FFFBF0;
-  --bg-secondary: #FFF5D6;
-  --bg-card: #FFFFFF;
-  --bg-nav: rgba(255, 251, 240, 0.95);
-  --text-primary: #0D0D0D;
-  --text-secondary: #444444;
-  --text-muted: #777777;
-  --border: rgba(0,0,0,0.08);
-  --shadow: 0 4px 24px rgba(0,0,0,0.08);
-  --shadow-hover: 0 8px 40px rgba(0,0,0,0.14);
-
-  /* BRAND COLORS — festival palette */
-  --gold: #F5C518;
-  --gold-dark: #D4A017;
+  /* LIGHT MODE */
+  --bg-primary: #f4f1eb;
+  --bg-secondary: #ede9e0;
+  --bg-card: #ffffff;
+  --bg-nav: rgba(244, 241, 235, 0.95);
+  --text-primary: #1f2937;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --border: rgba(0,0,0,0.09);
+  --shadow: 0 4px 24px rgba(0,0,0,0.07);
+  --shadow-hover: 0 8px 40px rgba(0,0,0,0.13);
+  /* BRAND */
+  --gold: #c9a227;
+  --gold-light: #f5d76e;
+  --gold-dark: #a07d10;
   --green: #00A651;
   --green-dark: #007A3D;
   --red: #E8353A;
   --sky: #00AEEF;
-  --sand: #F5DEB3;
-  --coral: #FF6B6B;
-
   /* GRADIENTS */
-  --grad-hero: linear-gradient(135deg, #1a6b3c 0%, #0a3d2b 40%, #1a3a6b 100%);
-  --grad-gold: linear-gradient(135deg, #F5C518, #FF8C00);
-  --grad-carnival: linear-gradient(135deg, #00A651, #F5C518, #E8353A);
-
+  --grad-hero: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --grad-gold: linear-gradient(135deg, #c9a227, #f5d76e);
+  --grad-carnival: linear-gradient(135deg, #c9a227, #f5d76e, #c9a227);
   /* TYPOGRAPHY */
   --font-display: 'Bebas Neue', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-italic: 'Playfair Display', serif;
-
   /* SPACING */
   --nav-h: 64px;
   --radius: 16px;
@@ -43,13 +38,13 @@
 }
 
 [data-theme="dark"] {
-  --bg-primary: #0A0F0A;
-  --bg-secondary: #111811;
-  --bg-card: #161E16;
-  --bg-nav: rgba(10, 15, 10, 0.95);
-  --text-primary: #F0F0F0;
-  --text-secondary: #B0B0B0;
-  --text-muted: #666666;
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --bg-nav: rgba(15, 23, 42, 0.95);
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
   --border: rgba(255,255,255,0.08);
   --shadow: 0 4px 24px rgba(0,0,0,0.4);
   --shadow-hover: 0 8px 40px rgba(0,0,0,0.6);
