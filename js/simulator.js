@@ -1,52 +1,108 @@
-// ============ WORLD CUP 2026 — ALL 48 TEAMS ============
-
 const TEAMS = {
-  // GROUP A
-  "Mexico": "🇲🇽", "South Africa": "🇿🇦", "Poland": "🇵🇱", "South Korea": "🇰🇷",
-  // GROUP B
-  "Spain": "🇪🇸", "Croatia": "🇭🇷", "Morocco": "🇲🇦", "Senegal": "🇸🇳",  
-  // GROUP C
-  "USA": "🇺🇸", "Uruguay": "🇺🇾", "Panama": "🇵🇦", "Bolivia": "🇧🇴",
-  // GROUP D
-  "France": "🇫🇷", "Argentina": "🇦🇷", "Australia": "🇦🇺", "Saudi Arabia": "🇸🇦",
-  // GROUP E
-  "Germany": "🇩🇪", "Japan": "🇯🇵", "Costa Rica": "🇨🇷", "Belgium": "🇧🇪",
-  // GROUP F
-  "Brazil": "🇧🇷", "Colombia": "🇨🇴", "Ecuador": "🇪🇨", "Cameroon": "🇨🇲",
-  // GROUP G
-  "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Netherlands": "🇳🇱", "Serbia": "🇷🇸", "Iran": "🇮🇷",
-  // GROUP H
-  "Portugal": "🇵🇹", "Turkey": "🇹🇷", "Czech Republic": "🇨🇿", "Ivory Coast": "🇨🇮",
-  // GROUP I
-  "Italy": "🇮🇹", "Switzerland": "🇨🇭", "Chile": "🇨🇱", "Nigeria": "🇳🇬",
-  // GROUP J
-  "Canada": "🇨🇦", "Denmark": "🇩🇰", "Peru": "🇵🇪", "Honduras": "🇭🇳",
-  // GROUP K
-  "Austria": "🇦🇹", "Ukraine": "🇺🇦", "Paraguay": "🇵🇾", "Iraq": "🇮🇶",
-  // GROUP L
-  "New Zealand": "🇳🇿", "Venezuela": "🇻🇪", "Algeria": "🇩🇿", "Norway": "🇳🇴"
+  // Group A
+  "Mexico": "🇲🇽", "South Korea": "🇰🇷", "South Africa": "🇿🇦", "Czechia": "🇨🇿",
+  // Group B
+  "Switzerland": "🇨🇭", "Canada": "🇨🇦", "Bosnia and Herzegovina": "🇧🇦", "Qatar": "🇶🇦",
+  // Group C
+  "Brazil": "🇧🇷", "Morocco": "🇲🇦", "Haiti": "🇭🇹", "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+  // Group D
+  "United States": "🇺🇸", "Paraguay": "🇵🇾", "Australia": "🇦🇺", "Turkey": "🇹🇷",
+  // Group E
+  "Germany": "🇩🇪", "Curacao": "🇨🇼", "Ivory Coast": "🇨🇮", "Ecuador": "🇪🇨",
+  // Group F
+  "Netherlands": "🇳🇱", "Japan": "🇯🇵", "Sweden": "🇸🇪", "Tunisia": "🇹🇳",
+  // Group G
+  "Belgium": "🇧🇪", "Egypt": "🇪🇬", "Iran": "🇮🇷", "New Zealand": "🇳🇿",
+  // Group H
+  "Spain": "🇪🇸", "Cape Verde": "🇨🇻", "Saudi Arabia": "🇸🇦", "Uruguay": "🇺🇾",
+  // Group I
+  "France": "🇫🇷", "Senegal": "🇸🇳", "Iraq": "🇮🇶", "Norway": "🇳🇴",
+  // Group J
+  "Argentina": "🇦🇷", "Algeria": "🇩🇿", "Austria": "🇦🇹", "Jordan": "🇯🇴",
+  // Group K
+  "Portugal": "🇵🇹", "DR Congo": "🇨🇩", "Uzbekistan": "🇺🇿", "Colombia": "🇨🇴",
+  // Group L
+  "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Croatia": "🇭🇷", "Ghana": "🇬🇭", "Panama": "🇵🇦"
 };
 
-// Round of 32 matchups (Group winners vs runners-up)
-const R32_MATCHUPS = [
-  ["Mexico", "South Korea"],
-  ["Spain", "Senegal"],
-  ["USA", "Uruguay"],
-  ["France", "Saudi Arabia"],
-  ["Germany", "Belgium"],
-  ["Brazil", "Cameroon"],
-  ["England", "Iran"],
-  ["Portugal", "Ivory Coast"],
-  ["Italy", "Nigeria"],
-  ["Canada", "Peru"],
-  ["Austria", "Iraq"],
-  ["New Zealand", "Norway"],
-  ["South Africa", "Poland"],
-  ["Croatia", "Morocco"],
-  ["Panama", "Bolivia"],
-  ["Argentina", "Australia"],
-];
+function calculateStandings() {
+  const standings = {};
+  Object.keys(groups).forEach(g => {
+    standings[g] = {};
+    groups[g].teams.forEach(t => {
+      standings[g][t] = { pts: 0, gf: 0, ga: 0, gd: 0 };
+    });
+  });
 
+  completedMatches.forEach(m => {
+    const s = standings[m.group];
+    if (m.goals1 > m.goals2) {
+      s[m.team1].pts += 3;
+    } else if (m.goals1 < m.goals2) {
+      s[m.team2].pts += 3;
+    } else {
+      s[m.team1].pts += 1;
+      s[m.team2].pts += 1;
+    }
+    s[m.team1].gf += m.goals1; s[m.team1].ga += m.goals2;
+    s[m.team2].gf += m.goals2; s[m.team2].ga += m.goals1;
+    s[m.team1].gd = s[m.team1].gf - s[m.team1].ga;
+    s[m.team2].gd = s[m.team2].gf - s[m.team2].ga;
+  });
+
+  // Apply user picks from upcomingMatches
+  if (typeof userPicks !== 'undefined') {
+    userPicks.forEach(pick => {
+      const s = standings[pick.group];
+      if (pick.result === 'team1') {
+        s[pick.team1].pts += 3;
+      } else if (pick.result === 'team2') {
+        s[pick.team2].pts += 3;
+      } else if (pick.result === 'draw') {
+        s[pick.team1].pts += 1;
+        s[pick.team2].pts += 1;
+      }
+    });
+  }
+
+  // Sort each group
+  const sorted = {};
+  Object.keys(standings).forEach(g => {
+    sorted[g] = Object.entries(standings[g])
+      .map(([team, stats]) => ({ team, ...stats }))
+      .sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+  });
+
+  return sorted;
+}
+
+function buildR32Matchups(standings, thirdPlace) {
+  const w = g => standings[g][0].team;
+  const ru = g => standings[g][1].team;
+  const tp = g => thirdPlace && thirdPlace[g] ? thirdPlace[g] : "TBD";
+
+  return [
+    [ru("A"), ru("B")],           // Match 73: South Africa/Canada resolved from standings
+    [w("E"), tp("ABCDF")],      // Match 74
+    ["Netherlands", "Morocco"], // Match 75 - fixed
+    ["Brazil", "Japan"],        // Match 76 - fixed
+    [w("I"), tp("CDFGH")],      // Match 77
+    ["Ivory Coast", ru("I")],   // Match 78
+    ["Mexico", tp("CEFHI")],    // Match 79
+    [w("L"), tp("EHIJK")],      // Match 80
+    ["United States", "Bosnia and Herzegovina"], // Match 81 - fixed
+    [w("G"), tp("AEHIJ")],      // Match 82
+    [ru("K"), ru("L")],         // Match 83
+    [w("H"), ru("J")],          // Match 84
+    ["Switzerland", tp("EFGIJ")], // Match 85
+    ["Argentina", ru("H")],     // Match 86
+    [w("K"), tp("DEIJL")],      // Match 87
+    ["Australia", ru("G")],     // Match 88
+  ];
+}
+
+let userPicks = [];
+let thirdPlacePicks = {};
 // State
 let rounds = [];
 // rounds[0] = R32 (16 matches)
@@ -253,5 +309,7 @@ function shareResult() {
 document.getElementById('resetBtn').addEventListener('click', resetBracket);
 document.getElementById('randomBtn').addEventListener('click', randomSimulate);
 
+const standings = calculateStandings();
+const R32_MATCHUPS = buildR32Matchups(standings, thirdPlacePicks);
 initRounds();
 renderBracket();
