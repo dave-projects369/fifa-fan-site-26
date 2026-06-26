@@ -158,7 +158,10 @@
   border-radius: 2px;
 }
 
-/* MATCH PICKER */
+/* ============================================
+   MATCH PICKER - UPDATED (Clickable Teams)
+   ============================================ */
+
 .match-picker {
   margin-bottom: 40px;
 }
@@ -178,6 +181,7 @@
   gap: 16px;
 }
 
+/* Match Item - Updated Design */
 .upcoming-match {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -188,13 +192,16 @@
   justify-content: space-between;
   gap: 12px;
   box-shadow: var(--shadow);
-  transition: box-shadow 0.2s;
+  transition: all 0.3s ease;
+  cursor: default;
 }
 
 .upcoming-match:hover {
   box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
 
+/* Group label - Unchanged */
 .um-group {
   font-size: 11px;
   font-weight: 700;
@@ -205,49 +212,175 @@
   padding: 3px 8px;
   border-radius: 20px;
   white-space: nowrap;
+  min-width: 60px;
+  text-align: center;
 }
 
+/* Team Names - Now Clickable with Flag Support */
 .um-team {
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  flex: 1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
   text-align: center;
+  flex: 1;
+  min-width: 60px;
+  user-select: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
+/* Flag icon inside team */
+.um-team .flag-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Hover effect for team names */
+.um-team.selectable:hover {
+  background: rgba(201,162,39,0.08);
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+
+/* Selected team - GOLD with TICK ✓ */
+.um-team.selected {
+  background: var(--grad-gold);
+  color: #1f2937;
+  border-color: var(--gold);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(201,162,39,0.3);
+}
+
+/* TICK MARK on selected team */
+.um-team.selected::after {
+  content: " ✓";
+  font-weight: 700;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Unselected team - faded */
+.um-team.unselected {
+  opacity: 0.4;
+  transform: scale(0.95);
+}
+
+/* VS text between teams */
+.um-vs {
+  color: var(--text-secondary);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0 4px;
+  min-width: 20px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* Hide the old buttons */
 .um-buttons {
-  display: flex;
-  gap: 6px;
-  align-items: center;
+  display: none;
 }
 
 .um-buttons button {
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+  display: none;
+}
+
+/* ============================================
+   PROGRESS SECTION (New)
+   ============================================ */
+
+.progress-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 25px 30px;
+  border-radius: var(--radius);
+  margin: 30px 0 20px 0;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.progress-section h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.progress-container {
+  width: 100%;
+  height: 24px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--grad-gold);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1f2937;
+  font-weight: 700;
   font-size: 11px;
-  font-weight: 600;
+  letter-spacing: 0.5px;
+  width: 0%;
+}
+
+.progress-stats {
+  text-align: center;
+  margin: 10px 0 6px 0;
+  font-size: 13px;
+  opacity: 0.8;
+  color: rgba(255,255,255,0.8);
+}
+
+.progress-stats span {
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.reset-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,162,39,0.3);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 12px auto 0;
+  font-family: var(--font-display);
+  letter-spacing: 0.5px;
 }
 
-.um-buttons button:hover {
+.reset-btn:hover {
   background: var(--grad-gold);
   color: #1f2937;
-  border-color: transparent;
-  box-shadow: 0 0 10px rgba(201,162,39,0.3);
-}
-
-.um-buttons button.selected {
-  background: var(--grad-gold);
-  color: #1f2937;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(201,162,39,0.2);
   border-color: transparent;
 }
 
-/* GROUP STANDINGS */
+/* ============================================
+   GROUP STANDINGS - UNCHANGED
+   ============================================ */
+
 .standings-section h3 {
   font-family: var(--font-display);
   font-size: 22px;
