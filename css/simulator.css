@@ -463,6 +463,20 @@
   font-size: 10px;
   color: var(--text-muted);
 }
+
+.third-place-wrapper {
+  max-width: 280px;
+  margin: 32px auto;
+  text-align: center;
+}
+
+.third-place-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1200px) {
   #standingsContainer {
