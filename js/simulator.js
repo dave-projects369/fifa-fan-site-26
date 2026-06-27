@@ -100,8 +100,8 @@ let rounds = [];
 // rounds[3] = SF (2 matches)
 // rounds[4] = Final (1 match)
 
-const ROUND_NAMES = ["Round of 32", "Round of 16", "Quarter Finals", "Semi Finals", "Final"];
-const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-f"];
+const ROUND_NAMES = ["Round of 32", "Round of 16", "Quarter Finals", "Semi Finals", "3rd Place Match", "Final"];
+const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-bronze", "step-f"];
 
 function initRounds() {
   rounds = [
@@ -125,6 +125,9 @@ function initRounds() {
     [
       { t1: null, t2: null, winner: null, id: 101, date: "July 14", time: "3:00 PM ET", from: [97, 98] },
       { t1: null, t2: null, winner: null, id: 102, date: "July 15", time: "3:00 PM ET", from: [99, 100] },
+    ],
+    [
+      { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET", from: [101, 102], isBronze: true },
     ],
     [
       { t1: null, t2: null, winner: null, id: 104, date: "July 19", time: "3:00 PM ET", from: [101, 102] },
@@ -165,8 +168,8 @@ function renderBracket() {
 
       const headerEl = document.createElement('div');
       headerEl.className = 'match-header';
-      headerEl.innerHTML = `<span class="match-id">Match ${match.id}</span><span class="match-date">${match.date || ''}${match.time && match.time !== 'TBD' ? ' · ' + match.time : ''}</span>`;
-      matchEl.appendChild(headerEl);
+      const matchLabel = match.id === 101 ? 'Semi Final 1' : match.id === 102 ? 'Semi Final 2' : match.id === 103 ? '3rd Place Match' : match.id === 104 ? 'FINAL' : `Match ${match.id}`;
+      headerEl.innerHTML = `<span class="match-id">${matchLabel}</span><span class="match-date">${match.date || ''}${match.time && match.time !== 'TBD' ? ' · ' + match.time : ''}</span>`;      matchEl.appendChild(headerEl);
 
       const team1El = buildTeamEl(match.t1, match.winner, rIdx, mIdx, 't1');
       const vsEl = document.createElement('div');
@@ -230,6 +233,14 @@ function pickWinner(rIdx, mIdx, teamName) {
       }
       nextMatch[slot] = teamName;
     }
+
+    // SF losers go to bronze match
+    if (rIdx === 3) {
+      const bronzeMatch = rounds[4][0];
+      const bronzeSlot = mIdx === 0 ? 't1' : 't2';
+      const loser = match.t1 === teamName ? match.t2 : match.t1;
+      bronzeMatch[bronzeSlot] = loser;
+    }
   }
 
   renderBracket();
@@ -266,7 +277,7 @@ function updateProgress() {
 }
 
 function checkChampion() {
-  const final = rounds[4][0];
+  const final = rounds[5][0];
   const display = document.getElementById('championDisplay');
   if (final.winner) {
     document.getElementById('championName').textContent = final.winner;
