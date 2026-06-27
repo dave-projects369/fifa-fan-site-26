@@ -1,0 +1,46 @@
+const knockouts = {
+  r32: [
+    { id: 73, team1: "South Africa", team2: "Canada", date: "June 28" },
+    { id: 74, team1: "Germany", team2: "Paraguay", date: "June 29" },
+    { id: 75, team1: "Netherlands", team2: "Morocco", date: "June 29" },
+    { id: 76, team1: "Brazil", team2: "Japan", date: "June 29" },
+    { id: 77, team1: "France", team2: "Sweden", date: "June 30" },
+    { id: 78, team1: "Ivory Coast", team2: "Norway", date: "June 30" },
+    { id: 79, team1: "Mexico", team2: "TBD", date: "June 30" },
+    { id: 80, team1: "Winner Group L", team2: "TBD", date: "July 1" },
+    { id: 81, team1: "United States", team2: "Bosnia and Herzegovina", date: "July 1" },
+    { id: 82, team1: "Winner Group G", team2: "TBD", date: "July 1" },
+    { id: 83, team1: "Runner-up Group K", team2: "Runner-up Group L", date: "July 2" },
+    { id: 84, team1: "Spain", team2: "Runner-up Group J", date: "July 2" },
+    { id: 85, team1: "Switzerland", team2: "TBD", date: "July 2" },
+    { id: 86, team1: "Argentina", team2: "Cape Verde", date: "July 3" },
+    { id: 87, team1: "Winner Group K", team2: "TBD", date: "July 3" },
+    { id: 88, team1: "Australia", team2: "Runner-up Group G", date: "July 3" },
+  ],
+  r16: [
+    { id: 89, from: [74, 77], date: "July 4" },
+    { id: 90, from: [73, 75], date: "July 4" },
+    { id: 91, from: [76, 78], date: "July 5" },
+    { id: 92, from: [79, 80], date: "July 5" },
+    { id: 93, from: [83, 84], date: "July 6" },
+    { id: 94, from: [81, 82], date: "July 6" },
+    { id: 95, from: [86, 88], date: "July 7" },
+    { id: 96, from: [85, 87], date: "July 7" },
+  ],
+  qf: [
+    { id: 97, from: [89, 90], date: "July 9" },
+    { id: 98, from: [93, 94], date: "July 10" },
+    { id: 99, from: [91, 92], date: "July 11" },
+    { id: 100, from: [95, 96], date: "July 11" },
+  ],
+  sf: [
+    { id: 101, from: [97, 98], date: "July 14" },
+    { id: 102, from: [99, 100], date: "July 15" },
+  ],
+  bronze: [
+    { id: 103, from: [101, 102], date: "July 18" },
+  ],
+  final: [
+    { id: 104, from: [101, 102], date: "July 19" },
+  ],
+};
