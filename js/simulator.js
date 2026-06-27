@@ -139,15 +139,16 @@ function renderStandings() {
 
     const table = document.createElement('table');
     table.innerHTML = `
-  <tr><th>Team</th><th>MP</th><th>Pts</th></tr>
+  <tr><th>Team</th><th>MP</th><th>Pts</th><th>GD</th></tr>
   ${standings[group].map(t => `
     <tr>
       <td>${TEAMS[t.team] || ''} ${t.team}</td>
       <td>${t.played}</td>
       <td>${t.pts}</td>
+      <td>${t.gd > 0 ? '+' : ''}${t.gd}</td>
     </tr>
   `).join('')}
- `;
+`;
     groupDiv.appendChild(table);
     container.appendChild(groupDiv);
   });
