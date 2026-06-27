@@ -151,7 +151,7 @@ function renderBracket() {
 
       const headerEl = document.createElement('div');
       headerEl.className = 'match-header';
-      headerEl.innerHTML = `<span class="match-id">Match ${match.id}</span><span class="match-date">${match.date || ''} ${match.time ? '· ' + match.time : ''}</span>`;
+      headerEl.innerHTML = `<span class="match-id">Match ${match.id}</span><span class="match-date">${match.date || ''}${match.time && match.time !== 'TBD' ? ' · ' + match.time : ''}</span>`;
       matchEl.appendChild(headerEl);
 
       const team1El = buildTeamEl(match.t1, match.winner, rIdx, mIdx, 't1');
