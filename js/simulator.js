@@ -62,31 +62,6 @@ function calculateStandings() {
   return sorted;
 }
 
-function buildR32Matchups(standings, thirdPlace) {
-  const w = g => standings[g][0].team;
-  const ru = g => standings[g][1].team;
-  const tp = g => thirdPlace && thirdPlace[g] ? thirdPlace[g] : "TBD";
-
-  return [
-    [ru("A"), ru("B")],           // Match 73: South Africa/Canada resolved from standings
-    [w("E"), tp("ABCDF")],      // Match 74
-    ["Netherlands", "Morocco"], // Match 75 - fixed
-    ["Brazil", "Japan"],        // Match 76 - fixed
-    [w("I"), tp("CDFGH")],      // Match 77
-    ["Ivory Coast", ru("I")],   // Match 78
-    ["Mexico", tp("CEFHI")],    // Match 79
-    [w("L"), tp("EHIJK")],      // Match 80
-    ["United States", "Bosnia and Herzegovina"], // Match 81 - fixed
-    [w("G"), tp("AEHIJ")],      // Match 82
-    [ru("K"), ru("L")],         // Match 83
-    [w("H"), ru("J")],          // Match 84
-    ["Switzerland", tp("EFGIJ")], // Match 85
-    ["Argentina", ru("H")],     // Match 86
-    [w("K"), tp("DEIJL")],      // Match 87
-    ["Australia", ru("G")],     // Match 88
-  ];
-}
-
 function renderStandings() {
   const container = document.getElementById('standingsContainer');
   if (!container) return;
@@ -130,11 +105,16 @@ const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-f"];
 
 function initRounds() {
   rounds = [
-    R32_MATCHUPS.map(([t1, t2]) => ({ t1, t2, winner: null })),
-    Array(8).fill(null).map(() => ({ t1: null, t2: null, winner: null })),
-    Array(4).fill(null).map(() => ({ t1: null, t2: null, winner: null })),
-    Array(2).fill(null).map(() => ({ t1: null, t2: null, winner: null })),
-    [{ t1: null, t2: null, winner: null }]
+    // R32 - load directly from knockouts.js
+    knockouts.r32.map(m => ({ t1: m.team1, t2: m.team2, winner: null, id: m.id, date: m.date })),
+    // R16
+    knockouts.r16.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
+    // QF
+    knockouts.qf.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
+    // SF
+    knockouts.sf.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
+    // Final
+    knockouts.final.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
   ];
 }
 
@@ -216,26 +196,26 @@ function pickWinner(rIdx, mIdx, teamName) {
   const match = rounds[rIdx][mIdx];
   if (!match.t1 || !match.t2) return;
 
-  // Set winner
   match.winner = teamName;
 
-  // Advance to next round
   if (rIdx < rounds.length - 1) {
-    const nextMatchIdx = Math.floor(mIdx / 2);
-    const nextSlot = mIdx % 2 === 0 ? 't1' : 't2';
-    const nextMatch = rounds[rIdx + 1][nextMatchIdx];
+    const currentId = match.id;
+    const nextRound = rounds[rIdx + 1];
+    const nextMatchIdx = nextRound.findIndex(m => m.from && m.from.includes(currentId));
 
-    // Clear downstream if changing winner
-    if (nextMatch[nextSlot] !== teamName) {
-      clearDownstream(rIdx + 1, nextMatchIdx);
+    if (nextMatchIdx !== -1) {
+      const nextMatch = nextRound[nextMatchIdx];
+      const slot = nextMatch.from[0] === currentId ? 't1' : 't2';
+
+      if (nextMatch[slot] !== teamName) {
+        clearDownstream(rIdx + 1, nextMatchIdx);
+      }
+      nextMatch[slot] = teamName;
     }
-
-    nextMatch[nextSlot] = teamName;
   }
 
   renderBracket();
 }
-
 function clearDownstream(rIdx, mIdx) {
   if (rIdx >= rounds.length) return;
   const match = rounds[rIdx][mIdx];
@@ -325,7 +305,5 @@ document.getElementById('randomBtn').addEventListener('click', randomSimulate);
 
 
 renderStandings();
-const standings = calculateStandings();
-const R32_MATCHUPS = buildR32Matchups(standings, thirdPlacePicks);
 initRounds();
 renderBracket();
