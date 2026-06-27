@@ -74,4 +74,9 @@ const completedMatches = [
   { team1: "Tunisia", team2: "Netherlands", goals1: 1, goals2: 3, group: "F" },
   { team1: "Turkey", team2: "United States", goals1: 3, goals2: 2, group: "D" },
   { team1: "Paraguay", team2: "Australia", goals1: 0, goals2: 0, group: "D" },
+  // June 26
+  { team1: "Norway", team2: "France", goals1: 1, goals2: 4, group: "I" },
+  { team1: "Senegal", team2: "Iraq", goals1: 5, goals2: 0, group: "I" },
+  { team1: "Cape Verde", team2: "Saudi Arabia", goals1: 0, goals2: 0, group: "H" },
+  { team1: "Uruguay", team2: "Spain", goals1: 0, goals2: 1, group: "H" },
 ];
