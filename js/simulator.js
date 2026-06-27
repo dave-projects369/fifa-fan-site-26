@@ -99,10 +99,9 @@ let rounds = [];
 // rounds[2] = QF (4 matches)
 // rounds[3] = SF (2 matches)
 // rounds[4] = Final (1 match)
-// rounds[5] = 3rd Place (1 match)
 
-const ROUND_NAMES = ["Round of 32", "Round of 16", "Quarter Finals", "Semi Finals", "Final", "3rd Place"];
-const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-f", "step-bronze"];
+const ROUND_NAMES = ["Round of 32", "Round of 16", "Quarter Finals", "Semi Finals", "3rd Place Match", "Final"];
+const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-bronze", "step-f"];
 
 function initRounds() {
   rounds = [
@@ -128,89 +127,55 @@ function initRounds() {
       { t1: null, t2: null, winner: null, id: 102, date: "July 15", time: "3:00 PM ET", from: [99, 100] },
     ],
     [
-      { t1: null, t2: null, winner: null, id: 104, date: "July 19", time: "3:00 PM ET", from: [101, 102] },
+      { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET", from: [101, 102], isBronze: true },
     ],
     [
-      { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET", from: [101, 102], isBronze: true },
+      { t1: null, t2: null, winner: null, id: 104, date: "July 19", time: "3:00 PM ET", from: [101, 102] },
     ],
   ];
 }
 
 function renderBracket() {
   const bracket = document.getElementById('bracket');
-  if (!bracket) return;
   bracket.innerHTML = '';
-
-  // Calculate total height for each round based on number of matches
-  const roundHeights = rounds.map(round => {
-    if (round.length === 0) return 0;
-    // Base height per match: larger for later rounds
-    const baseHeight = round.length <= 2 ? 140 : round.length <= 4 ? 100 : round.length <= 8 ? 80 : 65;
-    const gap = round.length <= 2 ? 20 : round.length <= 4 ? 14 : round.length <= 8 ? 10 : 6;
-    return (baseHeight + gap) * round.length - gap;
-  });
-
-  // Find max height to align all rounds
-  const maxHeight = Math.max(...roundHeights);
 
   rounds.forEach((round, rIdx) => {
     const col = document.createElement('div');
     col.className = 'round-col';
-    
-    // Special class for final rounds
-    if (rIdx >= 4) {
-      col.classList.add('final-col');
-    }
 
     const title = document.createElement('div');
     title.className = 'round-title';
     title.textContent = ROUND_NAMES[rIdx];
     col.appendChild(title);
 
-    const matchHeight = rIdx === 0 ? 65 : rIdx === 1 ? 80 : rIdx === 2 ? 100 : rIdx === 3 ? 120 : 140;
-    const gap = rIdx === 0 ? 6 : rIdx === 1 ? 10 : rIdx === 2 ? 14 : rIdx === 3 ? 20 : 24;
+    // Calculate spacing for alignment
+    const spacingMultiplier = Math.pow(2, rIdx);
 
     round.forEach((match, mIdx) => {
       const wrapper = document.createElement('div');
       wrapper.className = 'match-wrapper';
-      
-      // Calculate spacing to align all columns
-      const totalMatchesInRound = round.length;
-      const totalHeight = maxHeight;
-      const matchUnitHeight = (totalHeight - (totalMatchesInRound - 1) * gap) / totalMatchesInRound;
-      
-      wrapper.style.height = matchUnitHeight + 'px';
-      wrapper.style.display = 'flex';
-      wrapper.style.alignItems = 'center';
-      wrapper.style.justifyContent = 'center';
-      wrapper.style.padding = (gap / 2) + 'px 0';
+      // Add vertical spacing to align with previous round
+      if (rIdx > 0) {
+        const baseHeight = 110;
+        const gap = 12;
+        const totalUnit = (baseHeight + gap * 2) * Math.pow(1.85, rIdx);
+        wrapper.style.height = totalUnit + 'px';
+        wrapper.style.justifyContent = 'center';
+      }
 
       const matchEl = document.createElement('div');
       matchEl.className = 'match';
-      matchEl.style.width = '100%';
-      matchEl.style.height = (matchUnitHeight - gap) + 'px';
-      matchEl.style.display = 'flex';
-      matchEl.style.flexDirection = 'column';
-      matchEl.style.justifyContent = 'center';
 
       const headerEl = document.createElement('div');
       headerEl.className = 'match-header';
-      let matchLabel;
-      if (match.id === 101) matchLabel = 'SF 1';
-      else if (match.id === 102) matchLabel = 'SF 2';
-      else if (match.id === 103) matchLabel = '3rd Place';
-      else if (match.id === 104) matchLabel = '🏆 FINAL';
-      else matchLabel = `M${match.id}`;
-      
-      headerEl.innerHTML = `<span class="match-id">${matchLabel}</span><span class="match-date">${match.date || ''}${match.time && match.time !== 'TBD' ? ' · ' + match.time : ''}</span>`;
-      matchEl.appendChild(headerEl);
+      const matchLabel = match.id === 101 ? 'Semi Final 1' : match.id === 102 ? 'Semi Final 2' : match.id === 103 ? '3rd Place Match' : match.id === 104 ? 'FINAL' : `Match ${match.id}`;
+      headerEl.innerHTML = `<span class="match-id">${matchLabel}</span><span class="match-date">${match.date || ''}${match.time && match.time !== 'TBD' ? ' · ' + match.time : ''}</span>`;      matchEl.appendChild(headerEl);
 
       const team1El = buildTeamEl(match.t1, match.winner, rIdx, mIdx, 't1');
       const vsEl = document.createElement('div');
       vsEl.className = 'match-vs';
       vsEl.textContent = 'VS';
       const team2El = buildTeamEl(match.t2, match.winner, rIdx, mIdx, 't2');
-      
       matchEl.appendChild(team1El);
       matchEl.appendChild(vsEl);
       matchEl.appendChild(team2El);
@@ -252,13 +217,9 @@ function pickWinner(rIdx, mIdx, teamName) {
   const match = rounds[rIdx][mIdx];
   if (!match.t1 || !match.t2) return;
 
-  // Don't allow picking if match is TBD
-  if (!match.t1 || !match.t2) return;
-
   match.winner = teamName;
 
-  // Update next round
-  if (rIdx < 3) { // R32 -> R16, R16 -> QF, QF -> SF
+  if (rIdx < rounds.length - 1) {
     const currentId = match.id;
     const nextRound = rounds[rIdx + 1];
     const nextMatchIdx = nextRound.findIndex(m => m.from && m.from.includes(currentId));
@@ -272,39 +233,29 @@ function pickWinner(rIdx, mIdx, teamName) {
       }
       nextMatch[slot] = teamName;
     }
-  }
 
-  // SF losers go to 3rd Place (index 5)
-  if (rIdx === 3) {
-    const bronzeMatch = rounds[5][0];
-    const loser = match.t1 === teamName ? match.t2 : match.t1;
-    // Determine which slot based on which semi-final
-    if (mIdx === 0) {
-      bronzeMatch.t1 = loser;
-    } else {
-      bronzeMatch.t2 = loser;
+    // SF losers go to bronze match
+    if (rIdx === 3) {
+      const bronzeMatch = rounds[4][0];
+      const bronzeSlot = mIdx === 0 ? 't1' : 't2';
+      const loser = match.t1 === teamName ? match.t2 : match.t1;
+      bronzeMatch[bronzeSlot] = loser;
     }
-  }
-
-  // Final winner (index 4) is champion
-  if (rIdx === 4) {
-    // Champion is set, nothing else to do
   }
 
   renderBracket();
 }
-
 function clearDownstream(rIdx, mIdx) {
   if (rIdx >= rounds.length) return;
   const match = rounds[rIdx][mIdx];
   const oldWinner = match.winner;
   match.winner = null;
 
-  if (rIdx < 4 && oldWinner) { // Only clear up to SF
+  if (rIdx < rounds.length - 1 && oldWinner) {
     const nextMatchIdx = Math.floor(mIdx / 2);
     const nextSlot = mIdx % 2 === 0 ? 't1' : 't2';
     const nextMatch = rounds[rIdx + 1][nextMatchIdx];
-    if (nextMatch && nextMatch[nextSlot] === oldWinner) {
+    if (nextMatch[nextSlot] === oldWinner) {
       nextMatch[nextSlot] = null;
       clearDownstream(rIdx + 1, nextMatchIdx);
     }
@@ -317,8 +268,8 @@ function updateProgress() {
     if (!el) return;
     el.classList.remove('active', 'done');
 
-    const roundComplete = rounds[i] ? rounds[i].every(m => m.winner !== null) : false;
-    const prevComplete = i === 0 || (rounds[i - 1] && rounds[i - 1].every(m => m.winner !== null));
+    const roundComplete = rounds[i].every(m => m.winner !== null);
+    const prevComplete = i === 0 || rounds[i - 1].every(m => m.winner !== null);
 
     if (roundComplete) el.classList.add('done');
     else if (prevComplete) el.classList.add('active');
@@ -326,19 +277,15 @@ function updateProgress() {
 }
 
 function checkChampion() {
-  const final = rounds[4][0];
+  const final = rounds[5][0];
   const display = document.getElementById('championDisplay');
-  if (final && final.winner) {
+  if (final.winner) {
     document.getElementById('championName').textContent = final.winner;
     document.getElementById('championFlag').textContent = TEAMS[final.winner] || '🏳️';
-    if (display) {
-      display.style.display = 'block';
-      display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+    display.style.display = 'block';
+    display.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } else {
-    if (display) {
-      display.style.display = 'none';
-    }
+    display.style.display = 'none';
   }
 }
 
@@ -356,15 +303,10 @@ function randomSimulate() {
         const winner = Math.random() < 0.5 ? match.t1 : match.t2;
         match.winner = winner;
 
-        if (rIdx < 3) { // R32 -> SF
-          const currentId = match.id;
-          const nextRound = rounds[rIdx + 1];
-          const nextMatchIdx = nextRound.findIndex(m => m.from && m.from.includes(currentId));
-          if (nextMatchIdx !== -1) {
-            const nextMatch = nextRound[nextMatchIdx];
-            const slot = nextMatch.from[0] === currentId ? 't1' : 't2';
-            nextMatch[slot] = winner;
-          }
+        if (rIdx < rounds.length - 1) {
+          const nextMatchIdx = Math.floor(mIdx / 2);
+          const nextSlot = mIdx % 2 === 0 ? 't1' : 't2';
+          rounds[rIdx + 1][nextMatchIdx][nextSlot] = winner;
         }
       }
     });
@@ -387,17 +329,10 @@ function shareResult() {
 }
 
 // ============ INIT ============
-const resetBtn = document.getElementById('resetBtn');
-const randomBtn = document.getElementById('randomBtn');
+document.getElementById('resetBtn').addEventListener('click', resetBracket);
+document.getElementById('randomBtn').addEventListener('click', randomSimulate);
 
-if (resetBtn) resetBtn.addEventListener('click', resetBracket);
-if (randomBtn) randomBtn.addEventListener('click', randomSimulate);
 
-// Only render if elements exist
-if (document.getElementById('standingsContainer')) {
-  renderStandings();
-}
-if (document.getElementById('bracket')) {
-  initRounds();
-  renderBracket();
-}
+renderStandings();
+initRounds();
+renderBracket();
