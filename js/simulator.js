@@ -92,6 +92,7 @@ function renderStandings() {
 }
 
 let thirdPlacePicks = {};
+let thirdPlaceMatch = { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET" };
 // State
 let rounds = [];
 // rounds[0] = R32 (16 matches)
@@ -100,8 +101,8 @@ let rounds = [];
 // rounds[3] = SF (2 matches)
 // rounds[4] = Final (1 match)
 
-const ROUND_NAMES = ["Round of 32", "Round of 16", "Quarter Finals", "Semi Finals", "3rd Place Match", "Final"];
-const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-bronze", "step-f"];
+const ROUND_NAMES = ["Round of 32", "Round of 16", "Quarter Finals", "Semi Finals", "Final"];
+const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-f"];
 
 function initRounds() {
   rounds = [
@@ -127,12 +128,50 @@ function initRounds() {
       { t1: null, t2: null, winner: null, id: 102, date: "July 15", time: "3:00 PM ET", from: [99, 100] },
     ],
     [
-      { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET", from: [101, 102], isBronze: true },
-    ],
-    [
       { t1: null, t2: null, winner: null, id: 104, date: "July 19", time: "3:00 PM ET", from: [101, 102] },
     ],
   ];
+  thirdPlaceMatch = { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET" };
+}
+function renderThirdPlace() {
+  let container = document.getElementById('thirdPlaceContainer');
+  if (!container) return;
+
+  const match = thirdPlaceMatch;
+  const matchLabel = '3rd Place Match';
+
+  const headerEl = document.createElement('div');
+  headerEl.className = 'match-header';
+  const matchLabel2 = '3rd Place Match';
+  headerEl.innerHTML = `<span class="match-id">${matchLabel2}</span><span class="match-date">${match.date} · ${match.time}</span>`;
+
+  const team1El = buildTeamEl(match.t1, match.winner, -1, -1, 't1');
+  team1El.onclick = () => {
+    if (!match.t1 || !match.t2) return;
+    match.winner = match.t1;
+    renderThirdPlace();
+  };
+
+  const vsEl = document.createElement('div');
+  vsEl.className = 'match-vs';
+  vsEl.textContent = 'VS';
+
+  const team2El = buildTeamEl(match.t2, match.winner, -1, -1, 't2');
+  team2El.onclick = () => {
+    if (!match.t1 || !match.t2) return;
+    match.winner = match.t2;
+    renderThirdPlace();
+  };
+
+  const matchEl = document.createElement('div');
+  matchEl.className = 'match';
+  matchEl.appendChild(headerEl);
+  matchEl.appendChild(team1El);
+  matchEl.appendChild(vsEl);
+  matchEl.appendChild(team2El);
+
+  container.innerHTML = '';
+  container.appendChild(matchEl);
 }
 
 function renderBracket() {
@@ -156,9 +195,9 @@ function renderBracket() {
       wrapper.className = 'match-wrapper';
       // Add vertical spacing to align with previous round
       if (rIdx > 0) {
-        const baseHeight = 110;
-        const gap = 12;
-        const totalUnit = (baseHeight + gap * 2) * Math.pow(1.85, rIdx);
+        const baseHeight = 70;
+        const gap = 8;
+        const totalUnit = (baseHeight + gap * 2) * (1 + rIdx * 0.6);
         wrapper.style.height = totalUnit + 'px';
         wrapper.style.justifyContent = 'center';
       }
@@ -234,12 +273,12 @@ function pickWinner(rIdx, mIdx, teamName) {
       nextMatch[slot] = teamName;
     }
 
-    // SF losers go to bronze match
+    // SF losers go to third place match
     if (rIdx === 3) {
-      const bronzeMatch = rounds[4][0];
       const bronzeSlot = mIdx === 0 ? 't1' : 't2';
       const loser = match.t1 === teamName ? match.t2 : match.t1;
-      bronzeMatch[bronzeSlot] = loser;
+      thirdPlaceMatch[bronzeSlot] = loser;
+      renderThirdPlace();
     }
   }
 
@@ -277,7 +316,7 @@ function updateProgress() {
 }
 
 function checkChampion() {
-  const final = rounds[5][0];
+  const final = rounds[4][0];
   const display = document.getElementById('championDisplay');
   if (final.winner) {
     document.getElementById('championName').textContent = final.winner;
