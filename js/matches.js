@@ -79,4 +79,6 @@ const completedMatches = [
   { team1: "Senegal", team2: "Iraq", goals1: 5, goals2: 0, group: "I" },
   { team1: "Cape Verde", team2: "Saudi Arabia", goals1: 0, goals2: 0, group: "H" },
   { team1: "Uruguay", team2: "Spain", goals1: 0, goals2: 1, group: "H" },
+  { team1: "New Zealand", team2: "Belgium", goals1: 1, goals2: 5, group: "G" },
+  { team1: "Egypt", team2: "Iran", goals1: 1, goals2: 1, group: "G" },
 ];
