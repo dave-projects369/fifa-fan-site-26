@@ -105,16 +105,30 @@ const STEP_IDS = ["step-r32", "step-r16", "step-qf", "step-sf", "step-f"];
 
 function initRounds() {
   rounds = [
-    // R32 - load directly from knockouts.js
-    knockouts.r32.map(m => ({ t1: m.team1, t2: m.team2, winner: null, id: m.id, date: m.date })),
-    // R16
-    knockouts.r16.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
-    // QF
-    knockouts.qf.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
-    // SF
-    knockouts.sf.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
-    // Final
-    knockouts.final.map(m => ({ t1: null, t2: null, winner: null, id: m.id, date: m.date, from: m.from })),
+    knockouts.r32.map(m => ({ t1: m.team1, t2: m.team2, winner: null, id: m.id, date: m.date, time: m.time })),
+    [
+      { t1: null, t2: null, winner: null, id: 89, date: "July 4", time: "5:00 PM ET", from: [74, 77] },
+      { t1: null, t2: null, winner: null, id: 90, date: "July 4", time: "1:00 PM ET", from: [73, 75] },
+      { t1: null, t2: null, winner: null, id: 93, date: "July 6", time: "3:00 PM ET", from: [83, 84] },
+      { t1: null, t2: null, winner: null, id: 94, date: "July 6", time: "8:00 PM ET", from: [81, 82] },
+      { t1: null, t2: null, winner: null, id: 91, date: "July 5", time: "4:00 PM ET", from: [76, 78] },
+      { t1: null, t2: null, winner: null, id: 92, date: "July 5", time: "8:00 PM ET", from: [79, 80] },
+      { t1: null, t2: null, winner: null, id: 95, date: "July 7", time: "12:00 PM ET", from: [86, 88] },
+      { t1: null, t2: null, winner: null, id: 96, date: "July 7", time: "4:00 PM ET", from: [85, 87] },
+    ],
+    [
+      { t1: null, t2: null, winner: null, id: 97, date: "July 9", time: "4:00 PM ET", from: [89, 90] },
+      { t1: null, t2: null, winner: null, id: 98, date: "July 10", time: "3:00 PM ET", from: [93, 94] },
+      { t1: null, t2: null, winner: null, id: 99, date: "July 11", time: "5:00 PM ET", from: [91, 92] },
+      { t1: null, t2: null, winner: null, id: 100, date: "July 11", time: "9:00 PM ET", from: [95, 96] },
+    ],
+    [
+      { t1: null, t2: null, winner: null, id: 101, date: "July 14", time: "3:00 PM ET", from: [97, 98] },
+      { t1: null, t2: null, winner: null, id: 102, date: "July 15", time: "3:00 PM ET", from: [99, 100] },
+    ],
+    [
+      { t1: null, t2: null, winner: null, id: 104, date: "July 19", time: "3:00 PM ET", from: [101, 102] },
+    ],
   ];
 }
 
