@@ -52,22 +52,6 @@ function calculateStandings() {
     s[m.team2].played += 1;
   });
 
-  if (typeof userPicks !== 'undefined') {
-    userPicks.forEach(pick => {
-      const s = standings[pick.group];
-      if (pick.result === 'team1') {
-        s[pick.team1].pts += 3;
-      } else if (pick.result === 'team2') {
-        s[pick.team2].pts += 3;
-      } else if (pick.result === 'draw') {
-        s[pick.team1].pts += 1;
-        s[pick.team2].pts += 1;
-      }
-      s[pick.team1].played += 1;
-      s[pick.team2].played += 1;
-    });
-  }
-
   const sorted = {};
   Object.keys(standings).forEach(g => {
     sorted[g] = Object.entries(standings[g])
@@ -103,28 +87,6 @@ function buildR32Matchups(standings, thirdPlace) {
   ];
 }
 
-function renderUpcomingMatches() {
-  const container = document.getElementById('upcomingMatchesContainer');
-  if (!container) return;
-  container.innerHTML = '';
-
-  upcomingMatches.forEach((match, idx) => {
-    const div = document.createElement('div');
-    div.className = 'upcoming-match';
-    div.innerHTML = `
-      <span class="um-group">Group ${match.group}</span>
-      <span class="um-team">${TEAMS[match.team1] || ''} ${match.team1}</span>
-      <div class="um-buttons">
-        <button onclick="pickUpcoming(${idx}, 'team1')">Win</button>
-        <button onclick="pickUpcoming(${idx}, 'draw')">Draw</button>
-        <button onclick="pickUpcoming(${idx}, 'team2')">Win</button>
-      </div>
-      <span class="um-team">${TEAMS[match.team2] || ''} ${match.team2}</span>
-    `;
-    container.appendChild(div);
-  });
-}
-
 function renderStandings() {
   const container = document.getElementById('standingsContainer');
   if (!container) return;
@@ -154,20 +116,6 @@ function renderStandings() {
   });
 }
 
-function pickUpcoming(idx, result) {
-  const match = upcomingMatches[idx];
-  userPicks = userPicks.filter(p => p.team1 !== match.team1 || p.team2 !== match.team2);
-  userPicks.push({ ...match, result });
-
-  const standings = calculateStandings();
-  const R32_MATCHUPS = buildR32Matchups(standings, thirdPlacePicks);
-  rounds[0] = R32_MATCHUPS.map(([t1, t2]) => ({ t1, t2, winner: null }));
-
-  renderStandings();
-  renderBracket();
-}
-
-let userPicks = [];
 let thirdPlacePicks = {};
 // State
 let rounds = [];
@@ -375,7 +323,7 @@ function shareResult() {
 document.getElementById('resetBtn').addEventListener('click', resetBracket);
 document.getElementById('randomBtn').addEventListener('click', randomSimulate);
 
-renderUpcomingMatches();
+
 renderStandings();
 const standings = calculateStandings();
 const R32_MATCHUPS = buildR32Matchups(standings, thirdPlacePicks);
