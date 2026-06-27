@@ -139,9 +139,9 @@ function renderBracket() {
       wrapper.className = 'match-wrapper';
       // Add vertical spacing to align with previous round
       if (rIdx > 0) {
-        const baseHeight = 96; // approximate match height
-        const gap = 16;
-        const totalUnit = (baseHeight + gap * 2) * spacingMultiplier;
+        const baseHeight = 110;
+        const gap = 12;
+        const totalUnit = (baseHeight + gap * 2) * Math.pow(1.85, rIdx);
         wrapper.style.height = totalUnit + 'px';
         wrapper.style.justifyContent = 'center';
       }
