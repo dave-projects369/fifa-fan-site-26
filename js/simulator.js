@@ -149,12 +149,16 @@ function renderBracket() {
       const matchEl = document.createElement('div');
       matchEl.className = 'match';
 
+      const headerEl = document.createElement('div');
+      headerEl.className = 'match-header';
+      headerEl.innerHTML = `<span class="match-id">Match ${match.id}</span><span class="match-date">${match.date || ''} ${match.time ? '· ' + match.time : ''}</span>`;
+      matchEl.appendChild(headerEl);
+
       const team1El = buildTeamEl(match.t1, match.winner, rIdx, mIdx, 't1');
       const vsEl = document.createElement('div');
       vsEl.className = 'match-vs';
       vsEl.textContent = 'VS';
       const team2El = buildTeamEl(match.t2, match.winner, rIdx, mIdx, 't2');
-
       matchEl.appendChild(team1El);
       matchEl.appendChild(vsEl);
       matchEl.appendChild(team2El);
