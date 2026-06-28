@@ -133,46 +133,6 @@ function initRounds() {
   ];
   thirdPlaceMatch = { t1: null, t2: null, winner: null, id: 103, date: "July 18", time: "5:00 PM ET" };
 }
-function renderThirdPlace() {
-  let container = document.getElementById('thirdPlaceContainer');
-  if (!container) return;
-
-  const match = thirdPlaceMatch;
-  const matchLabel = '3rd Place Match';
-
-  const headerEl = document.createElement('div');
-  headerEl.className = 'match-header';
-  const matchLabel2 = '3rd Place Match';
-  headerEl.innerHTML = `<span class="match-id">${matchLabel2}</span><span class="match-date">${match.date} · ${match.time}</span>`;
-
-  const team1El = buildTeamEl(match.t1, match.winner, -1, -1, 't1');
-  team1El.onclick = () => {
-    if (!match.t1 || !match.t2) return;
-    match.winner = match.t1;
-    renderThirdPlace();
-  };
-
-  const vsEl = document.createElement('div');
-  vsEl.className = 'match-vs';
-  vsEl.textContent = 'VS';
-
-  const team2El = buildTeamEl(match.t2, match.winner, -1, -1, 't2');
-  team2El.onclick = () => {
-    if (!match.t1 || !match.t2) return;
-    match.winner = match.t2;
-    renderThirdPlace();
-  };
-
-  const matchEl = document.createElement('div');
-  matchEl.className = 'match';
-  matchEl.appendChild(headerEl);
-  matchEl.appendChild(team1El);
-  matchEl.appendChild(vsEl);
-  matchEl.appendChild(team2El);
-
-  container.innerHTML = '';
-  container.appendChild(matchEl);
-}
 
 function renderBracket() {
   const bracket = document.getElementById('bracket');
@@ -195,9 +155,9 @@ function renderBracket() {
       wrapper.className = 'match-wrapper';
       // Add vertical spacing to align with previous round
       if (rIdx > 0) {
-        const baseHeight = 70;
+        const baseHeight = 134;
         const gap = 8;
-        const totalUnit = (baseHeight + gap * 2) * (1 + rIdx * 0.6);
+        const totalUnit = (baseHeight + gap * 2) * Math.pow(2, rIdx);
         wrapper.style.height = totalUnit + 'px';
         wrapper.style.justifyContent = 'center';
       }
@@ -225,8 +185,52 @@ function renderBracket() {
     bracket.appendChild(col);
   });
 
+  // Render SF column with third place match below SF2
+  const sfColIdx = rounds.findIndex((r, i) => ROUND_NAMES[i] === 'Semi Finals');
+  if (sfColIdx !== -1) {
+    const sfCol = bracket.children[sfColIdx];
+    if (sfCol && thirdPlaceMatch) {
+      const tpWrapper = document.createElement('div');
+      tpWrapper.className = 'match-wrapper third-place-bracket';
+
+      const tpMatch = thirdPlaceMatch;
+      const tpMatchEl = document.createElement('div');
+      tpMatchEl.className = 'match third-place-match';
+
+      const tpHeader = document.createElement('div');
+      tpHeader.className = 'match-header';
+      tpHeader.innerHTML = `<span class="match-id">3rd Place Match</span><span class="match-date">July 18 · 5:00 PM ET</span>`;
+
+      const tp1 = buildTeamEl(tpMatch.t1, tpMatch.winner, -1, 0, 't1');
+      tp1.onclick = () => {
+        if (!tpMatch.t1 || !tpMatch.t2) return;
+        tpMatch.winner = tpMatch.t1;
+        renderBracket();
+      };
+
+      const tpVs = document.createElement('div');
+      tpVs.className = 'match-vs';
+      tpVs.textContent = 'VS';
+
+      const tp2 = buildTeamEl(tpMatch.t2, tpMatch.winner, -1, 1, 't2');
+      tp2.onclick = () => {
+        if (!tpMatch.t1 || !tpMatch.t2) return;
+        tpMatch.winner = tpMatch.t2;
+        renderBracket();
+      };
+
+      tpMatchEl.appendChild(tpHeader);
+      tpMatchEl.appendChild(tp1);
+      tpMatchEl.appendChild(tpVs);
+      tpMatchEl.appendChild(tp2);
+      tpWrapper.appendChild(tpMatchEl);
+      sfCol.appendChild(tpWrapper);
+    }
+  }
+
   updateProgress();
   checkChampion();
+}
 }
 
 function buildTeamEl(teamName, winner, rIdx, mIdx, slot) {
@@ -278,7 +282,6 @@ function pickWinner(rIdx, mIdx, teamName) {
       const bronzeSlot = mIdx === 0 ? 't1' : 't2';
       const loser = match.t1 === teamName ? match.t2 : match.t1;
       thirdPlaceMatch[bronzeSlot] = loser;
-      renderThirdPlace();
     }
   }
 
@@ -291,16 +294,18 @@ function clearDownstream(rIdx, mIdx) {
   match.winner = null;
 
   if (rIdx < rounds.length - 1 && oldWinner) {
-    const nextMatchIdx = Math.floor(mIdx / 2);
-    const nextSlot = mIdx % 2 === 0 ? 't1' : 't2';
-    const nextMatch = rounds[rIdx + 1][nextMatchIdx];
-    if (nextMatch[nextSlot] === oldWinner) {
-      nextMatch[nextSlot] = null;
-      clearDownstream(rIdx + 1, nextMatchIdx);
+    const nextRound = rounds[rIdx + 1];
+    const nextMatchIdx = nextRound.findIndex(m => m.from && m.from.includes(match.id));
+    if (nextMatchIdx !== -1) {
+      const nextMatch = nextRound[nextMatchIdx];
+      const slot = nextMatch.from[0] === match.id ? 't1' : 't2';
+      if (nextMatch[slot] === oldWinner) {
+        nextMatch[slot] = null;
+        clearDownstream(rIdx + 1, nextMatchIdx);
+      }
     }
   }
 }
-
 function updateProgress() {
   STEP_IDS.forEach((id, i) => {
     const el = document.getElementById(id);
