@@ -290,9 +290,9 @@
   right: -12px;
   top: 50%;
   width: 12px;
-  height: 2px;
+  height: 1px;
   background: var(--gold);
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .match-wrapper::before {
@@ -301,35 +301,10 @@
   left: -12px;
   top: 50%;
   width: 12px;
-  height: 2px;
-  background: var(--gold);
-  opacity: 0.6;
-}
-
-/* Vertical connector — only on even indexed wrappers */
-.match-wrapper:nth-child(even)::before {
-  content: '';
-  position: absolute;
-  left: -12px;
-  top: 50%;
-  width: 12px;
-  height: 2px;
-  background: var(--gold);
-  opacity: 0.6;
-}
-
-.round-col:not(:first-child) .match-wrapper:nth-child(odd)::after {
-  content: '';
-  position: absolute;
-  right: -12px;
-  top: 50%;
-  width: 2px;
-  height: 100%;
+  height: 1px;
   background: var(--gold);
   opacity: 0.4;
-  transform: translateY(0);
 }
-
 .round-col:first-child .match-wrapper::before {
   display: none;
 }
