@@ -5,7 +5,7 @@ const knockouts = {
     { id: 73, team1: "South Africa", team2: "Canada", date: "June 28", time: "3:00 PM ET" },
     { id: 75, team1: "Netherlands", team2: "Morocco", date: "June 29", time: "9:00 PM ET" },
     { id: 83, team1: "Portugal", team2: "Croatia", date: "July 2", time: "7:00 PM ET" },
-    { id: 84, team1: "Spain", team2: "Runner-up Group J", date: "July 2", time: "3:00 PM ET" },
+    { id: 84, team1: "Spain", team2: "Austria", date: "July 2", time: "3:00 PM ET" },
     { id: 81, team1: "United States", team2: "Bosnia and Herzegovina", date: "July 1", time: "8:00 PM ET" },
     { id: 82, team1: "Belgium", team2: "Senegal", date: "July 1", time: "4:00 PM ET" },
     { id: 76, team1: "Brazil", team2: "Japan", date: "June 29", time: "1:00 PM ET" },
