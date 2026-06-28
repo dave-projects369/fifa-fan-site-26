@@ -477,6 +477,14 @@
   letter-spacing: 1px;
   margin-bottom: 12px;
 }
+.third-place-bracket {
+  margin-top: 16px;
+}
+
+.third-place-match {
+  border: 1px solid var(--gold);
+  opacity: 0.85;
+}
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1200px) {
   #standingsContainer {
