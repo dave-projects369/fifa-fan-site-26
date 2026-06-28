@@ -231,8 +231,6 @@ function renderBracket() {
   updateProgress();
   checkChampion();
 }
-}
-
 function buildTeamEl(teamName, winner, rIdx, mIdx, slot) {
   const el = document.createElement('div');
   el.className = 'match-team';
