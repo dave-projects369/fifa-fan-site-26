@@ -14,7 +14,7 @@ const knockouts = {
     { id: 80, team1: "England", team2: "DR Congo", date: "July 1", time: "12:00 PM ET" },
     { id: 86, team1: "Argentina", team2: "Cape Verde", date: "July 3", time: "6:00 PM ET" },
     { id: 88, team1: "Australia", team2: "Egypt", date: "July 3", time: "2:00 PM ET" },
-    { id: 85, team1: "Switzerland", team2: "TBD", date: "July 2", time: "11:00 PM ET" },
+    { id: 85, team1: "Switzerland", team2: "Algeria", date: "July 2", time: "11:00 PM ET" },
     { id: 87, team1: "Colombia", team2: "Ghana", date: "July 3", time: "9:30 PM ET" },
   ],
   r16: [
