@@ -155,8 +155,8 @@ function renderBracket() {
       wrapper.className = 'match-wrapper';
       // Add vertical spacing to align with previous round
       if (rIdx > 0) {
-        const baseHeight = 134;
-        const gap = 8;
+        const baseHeight = 155;
+        const gap = 20;
         const totalUnit = (baseHeight + gap * 2) * Math.pow(2, rIdx);
         wrapper.style.height = totalUnit + 'px';
         wrapper.style.justifyContent = 'center';
