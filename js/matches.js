@@ -86,4 +86,7 @@ const completedMatches = [
   { team1: "Croatia", team2: "Ghana", goals1: 2, goals2: 1, group: "L" },
   { team1: "Colombia", team2: "Portugal", goals1: 0, goals2: 0, group: "K" },
   { team1: "DR Congo", team2: "Uzbekistan", goals1: 3, goals2: 1, group: "K" },
+  // June 27 - Group J
+  { team1: "Argentina", team2: "Jordan", goals1: 3, goals2: 1, group: "J" },
+  { team1: "Algeria", team2: "Austria", goals1: 3, goals2: 3, group: "J" },
 ];
