@@ -171,11 +171,11 @@ function renderBracket() {
       const matchLabel = match.id === 101 ? 'Semi Final 1' : match.id === 102 ? 'Semi Final 2' : match.id === 103 ? '3rd Place Match' : match.id === 104 ? 'FINAL' : `Match ${match.id}`;
       headerEl.innerHTML = `<span class="match-id">${matchLabel}</span><span class="match-date">${match.date || ''}${match.time && match.time !== 'TBD' ? ' · ' + match.time : ''}</span>`;      matchEl.appendChild(headerEl);
 
-      const team1El = buildTeamEl(match.t1, match.winner, rIdx, mIdx, 't1');
+      const team1El = buildTeamEl(match.t1, match.winner, rIdx, mIdx, 't1', match.from ? match.from[0] : null);
       const vsEl = document.createElement('div');
       vsEl.className = 'match-vs';
       vsEl.textContent = 'VS';
-      const team2El = buildTeamEl(match.t2, match.winner, rIdx, mIdx, 't2');
+      const team2El = buildTeamEl(match.t2, match.winner, rIdx, mIdx, 't2', match.from ? match.from[1] : null);
       matchEl.appendChild(team1El);
       matchEl.appendChild(vsEl);
       matchEl.appendChild(team2El);
@@ -232,13 +232,14 @@ function renderBracket() {
   updateProgress();
   checkChampion();
 }
-function buildTeamEl(teamName, winner, rIdx, mIdx, slot) {
+function buildTeamEl(teamName, winner, rIdx, mIdx, slot, fromId) {
   const el = document.createElement('div');
   el.className = 'match-team';
 
   if (!teamName) {
     el.classList.add('tbd');
-    el.innerHTML = `<span class="team-flag">❓</span><span class="team-name">TBD</span>`;
+    const label = fromId ? `Winner of Match ${fromId}` : 'To Be Decided';
+    el.innerHTML = `<span class="team-flag">⚽</span><span class="team-name">${label}</span>`;
     return el;
   }
 
